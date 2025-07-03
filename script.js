@@ -126,11 +126,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (pinnedNotes.length === 0) {
             // Memastikan elemen ada sebelum mengakses style
-            if (emptyPinnedNotesMessage) { 
+            if (emptyPinnedNotesMessage) { // <--- PERBAIKAN DI SINI
                 emptyPinnedNotesMessage.style.display = 'block';
             }
         } else {
-            if (emptyPinnedNotesMessage) {
+            if (emptyPinnedNotesMessage) { // <--- PERBAIKAN DI SINI
                 emptyPinnedNotesMessage.style.display = 'none';
             }
             pinnedNotes.forEach(note => {
@@ -140,11 +140,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (otherNotes.length === 0) {
             // Memastikan elemen ada sebelum mengakses style
-            if (emptyOtherNotesMessage) {
+            if (emptyOtherNotesMessage) { // <--- PERBAIKAN DI SINI
                 emptyOtherNotesMessage.style.display = 'block';
             }
         } else {
-            if (emptyOtherNotesMessage) {
+            if (emptyOtherNotesMessage) { // <--- PERBAIKAN DI SINI
                 emptyOtherNotesMessage.style.display = 'none';
             }
             otherNotes.forEach(note => {
