@@ -1,792 +1,676 @@
-/* --- style.css --- */
-
-/* Google Fonts - Menggunakan 'Inter' dan 'Space Mono' (inspirasi dari Voximplant) */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
-
-:root {
-    /* Warna yang terinspirasi dari voximplant.com */
-    --primary-blue: #21D4FD; /* Biru cerah, bisa jadi aksen utama */
-    --secondary-blue: #B721FF; /* Ungu kebiruan, untuk gradien/aksen */
-    --bg-dark: #1A1D27; /* Background gelap, mirip dengan body Voximplant */
-    --bg-medium: #2B2F3D; /* Background kartu atau elemen di atas bg-dark */
-    --bg-light: #3D4255; /* Warna lebih terang untuk border/divider */
-    --text-light: #F0F2F5; /* Teks terang untuk background gelap */
-    --text-medium: #AAB3C4; /* Teks sekunder, deskripsi */
-    --text-dark: #2B2F3D; /* Untuk elemen di background terang (jika ada) */
-
-    --success-green: #28a745; /* Tetap pertahankan untuk indikator positif */
-    --danger-red: #dc3545;   /* Tetap pertahankan untuk indikator negatif */
-
-    --border-radius-soft: 8px;
-    --border-radius-medium: 12px;
-    --spacing-xs: 8px;
-    --spacing-sm: 12px;
-    --spacing-md: 20px;
-    --spacing-lg: 32px;
-
-    /* Font Families */
-    --font-primary: 'Inter', sans-serif;
-    --font-mono: 'Space Mono', monospace;
-}
-
-/* Base Styles */
-* {
-    box-sizing: border-box;
+/* General Body and Font Styles */
+body {
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-}
-
-body {
-    font-family: var(--font-primary);
-    background: var(--bg-dark); /* Background utama */
-    color: var(--text-light); /* Warna teks default */
+    background: linear-gradient(to bottom, #1E1E2C, #2C2C3F); /* Dark gradient background */
+    color: #E0E0E0; /* Light text color */
     line-height: 1.6;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: var(--spacing-md);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
 }
 
-.app-container {
-    background: var(--bg-medium);
-    border-radius: var(--border-radius-medium);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.08); /* Shadow lebih modern */
-    max-width: 600px;
-    width: 100%;
-    overflow: hidden; /* Penting untuk header/footer sticky */
-    display: flex;
-    flex-direction: column;
-    min-height: 700px; /* Tinggi minimum untuk estetika */
-}
-
-/* Header */
-.app-header {
-    background: linear-gradient(90deg, var(--primary-blue) 0%, var(--secondary-blue) 100%); /* Gradien ala Voximplant */
+/* Header and Navigation */
+.main-header {
+    background: linear-gradient(to right, #21D4FD, #B721FF); /* Gradient header */
     color: white;
-    padding: var(--spacing-md) var(--spacing-lg);
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar {
     display: flex;
     align-items: center;
-    position: relative; /* Untuk positioning tombol back */
-    z-index: 10;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    justify-content: flex-start; /* Align to start for menu button */
 }
 
-.header-title {
-    flex-grow: 1;
-    text-align: center;
-    font-size: 1.8rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    font-family: var(--font-mono); /* Font mono untuk judul utama */
-}
-
-.back-button {
+.menu-toggle {
     background: none;
     border: none;
     color: white;
-    font-size: 1.5rem;
+    font-size: 24px;
     cursor: pointer;
-    position: absolute;
-    left: var(--spacing-lg);
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: var(--spacing-xs);
-    border-radius: var(--border-radius-soft);
-    transition: background-color 0.2s ease-in-out;
+    margin-right: 15px;
+    padding: 0;
 }
 
-.back-button:hover {
-    background-color: rgba(255, 255, 255, 0.15);
+.app-title {
+    font-size: 22px;
+    font-weight: bold;
 }
 
-/* Main Content Area */
-.app-main {
-    flex-grow: 1;
-    padding: var(--spacing-lg);
-    position: relative; /* Untuk positioning halaman */
-    overflow-y: auto; /* Scrollable content */
+/* Side Menu */
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: -250px; /* Hidden by default */
+    width: 250px;
+    height: 100%;
+    background-color: #2C2C3F; /* Darker background for menu */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+    padding-top: 70px; /* Space for header */
+    transition: left 0.3s ease;
+    z-index: 999;
+}
+
+.side-menu.active {
+    left: 0; /* Show menu */
+}
+
+.side-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.side-menu li {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.side-menu li:last-child {
+    border-bottom: none;
+}
+
+.side-menu a {
+    display: block;
+    padding: 15px 20px;
+    color: #E0E0E0;
+    text-decoration: none;
+    font-size: 18px;
+    transition: background-color 0.2s ease;
+}
+
+.side-menu a:hover {
+    background-color: #3A3A50; /* Slightly lighter on hover */
+}
+
+.side-menu a i {
+    margin-right: 10px;
+    width: 24px; /* Ensure consistent icon alignment */
+    text-align: center;
+}
+
+/* Page Content */
+#app-content {
+    padding: 20px;
 }
 
 .page {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateX(100%);
-    transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out, visibility 0.4s;
-    padding: var(--spacing-lg);
-    overflow-y: auto; /* Untuk konten halaman yang mungkin panjang */
+    display: none; /* Hide all pages by default */
+    padding: 0px; /* Adjust padding here */
 }
 
 .page.active {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(0);
-    position: static; /* Biarkan active page mengambil ruang */
+    display: block; /* Show active page */
 }
 
-.section-title {
-    font-size: 1.6rem;
-    font-weight: 600;
-    color: var(--primary-blue);
-    margin-bottom: var(--spacing-lg);
+.page-title {
     text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+    color: #21D4FD; /* Blue for titles */
+    margin-bottom: 30px;
+    font-size: 28px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
-/* --- Dashboard Page --- */
-.feature-grid {
+/* Hero Section (Home Page) */
+.hero {
+    text-align: center;
+    padding: 40px 20px;
+    background: rgba(0, 0, 0, 0.3); /* Semi-transparent dark overlay */
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.hero h1 {
+    font-size: 36px;
+    color: #B721FF; /* Purple for hero title */
+    margin-bottom: 15px;
+}
+
+.hero p {
+    font-size: 18px;
+    color: #C0C0C0;
+}
+
+/* Category Grid (for Home and Products) */
+.category-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: var(--spacing-md);
-    padding-top: var(--spacing-md);
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
 }
 
-.feature-card {
-    background: var(--bg-dark);
-    padding: var(--spacing-lg);
-    border-radius: var(--border-radius-medium);
+.category-card {
+    background-color: #3A3A50; /* Darker card background */
+    padding: 25px 15px;
+    border-radius: 10px;
     text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
     cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    border: 1px solid var(--bg-light);
 }
 
-.feature-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, rgba(33, 212, 253, 0.1), rgba(183, 33, 255, 0.1));
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: 0;
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
-.feature-card:hover::before {
-    opacity: 1;
+.category-card i {
+    font-size: 48px;
+    color: #21D4FD; /* Blue icon color */
+    margin-bottom: 15px;
 }
 
-.feature-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), 0 0 0 2px var(--primary-blue);
-    background: var(--bg-medium);
+.category-card h3 {
+    font-size: 18px;
+    margin: 0;
+    color: #E0E0E0;
 }
 
-.feature-card i {
-    font-size: 3.5rem;
-    color: var(--primary-blue);
-    margin-bottom: var(--spacing-sm);
-    display: block;
-    position: relative;
-    z-index: 1;
-}
-
-.feature-card h3 {
-    font-size: 1.4rem;
-    margin-bottom: var(--spacing-xs);
-    color: var(--text-light);
-    position: relative;
-    z-index: 1;
-}
-
-.feature-card p {
-    font-size: 0.9rem;
-    color: var(--text-medium);
-    position: relative;
-    z-index: 1;
-}
-
-
-/* --- General Form Elements & Buttons --- */
-.input-section {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-sm);
-    margin-bottom: var(--spacing-lg);
-    background: var(--bg-dark);
-    padding: var(--spacing-md);
-    border-radius: var(--border-radius-soft);
-    border: 1px solid var(--bg-light);
-}
-
-input[type="text"],
-input[type="number"],
-textarea,
-select {
-    width: 100%;
-    padding: var(--spacing-sm);
-    border: 1px solid var(--bg-light);
-    border-radius: var(--border-radius-soft);
-    background: var(--bg-medium);
-    color: var(--text-light);
-    font-size: 1rem;
-    font-family: var(--font-primary);
-    outline: none;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-input[type="text"]::placeholder,
-input[type="number"]::placeholder,
-textarea::placeholder {
-    color: var(--text-medium);
-}
-
-input[type="text"]:focus,
-input[type="number"]:focus,
-textarea:focus,
-select:focus {
-    border-color: var(--primary-blue);
-    box-shadow: 0 0 0 3px rgba(33, 212, 253, 0.3);
-}
-
-textarea {
-    resize: vertical;
-    min-height: 80px;
-}
-
-select {
-    appearance: none; /* Menghilangkan default arrow */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23AAB3C4'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-    background-size: 1.2em;
-}
-
-.cta-button {
-    background: linear-gradient(90deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+/* Action Buttons (General) */
+.action-button, .back-button {
+    background: linear-gradient(to right, #21D4FD, #B721FF); /* Gradient button */
     color: white;
     border: none;
-    padding: var(--spacing-sm) var(--spacing-md);
-    border-radius: var(--border-radius-soft);
+    padding: 12px 25px;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 1rem;
-    font-weight: 600;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    outline: none;
+    font-size: 16px;
+    font-weight: bold;
+    transition: opacity 0.2s ease;
+    width: 100%; /* Full width */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 15px;
 }
 
-.cta-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), 0 0 0 2px rgba(33, 212, 253, 0.4);
+.action-button:hover, .back-button:hover {
+    opacity: 0.9;
 }
 
-.cta-button:active {
-    transform: translateY(0);
-    box-shadow: none;
+/* Catatan & Pengingat Page */
+.note-input-section {
+    background-color: #3A3A50;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.cta-button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-}
-
-/* --- Search Page --- */
-.search-input-container {
-    position: relative;
-    margin-bottom: var(--spacing-lg);
-}
-
-#searchInput {
-    padding-right: 40px; /* Beri ruang untuk ikon */
-}
-
-.search-icon {
-    position: absolute;
-    right: var(--spacing-sm);
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-medium);
-    font-size: 1.1rem;
-}
-
-.search-results-container {
-    background: var(--bg-dark);
-    border-radius: var(--border-radius-soft);
-    padding: var(--spacing-md);
-    border: 1px solid var(--bg-light);
-}
-
-.search-results-header {
-    font-size: 1.2rem;
-    color: var(--primary-blue);
-    margin-bottom: var(--spacing-sm);
-    padding-bottom: var(--spacing-xs);
-    border-bottom: 1px solid var(--bg-light);
-    font-weight: 500;
-}
-
-.results-list {
-    margin-bottom: var(--spacing-md);
-}
-
-.search-result-item {
-    background: var(--bg-medium);
-    padding: var(--spacing-sm);
-    border-radius: var(--border-radius-soft);
-    margin-bottom: var(--spacing-xs);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.2s ease;
-    border: 1px solid transparent;
-}
-
-.search-result-item:hover {
-    background-color: var(--bg-light);
-    transform: translateX(5px);
-    border-color: var(--primary-blue);
-}
-
-.search-result-item p {
-    flex-grow: 1;
-    color: var(--text-light);
-    font-size: 0.95rem;
-    margin-right: var(--spacing-sm);
-}
-
-.search-result-item .item-type {
-    background: rgba(33, 212, 253, 0.2);
-    color: var(--primary-blue);
-    font-size: 0.75rem;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-weight: 500;
-}
-
-
-/* --- Notes Page --- */
-.notes-list-section {
-    margin-top: var(--spacing-lg);
+#note-text {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background-color: #2C2C3F;
+    color: #E0E0E0;
+    min-height: 80px;
+    resize: vertical;
 }
 
 .notes-list-section h3 {
-    font-size: 1.3rem;
-    color: var(--primary-blue);
-    margin-bottom: var(--spacing-sm);
-    padding-bottom: var(--spacing-xs);
-    border-bottom: 1px solid var(--bg-light);
+    color: #21D4FD;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-size: 22px;
 }
 
-.notes-list {
-    margin-bottom: var(--spacing-lg);
+.notes-container {
+    background-color: #3A3A50;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    min-height: 50px; /* Ensure visibility even when empty */
+}
+
+.notes-container p { /* For empty messages */
+    color: #C0C0C0;
+    text-align: center;
+    font-style: italic;
+    padding: 10px;
 }
 
 .note-item {
-    background: var(--bg-dark);
-    padding: var(--spacing-sm) var(--spacing-md);
-    border-radius: var(--border-radius-soft);
-    margin-bottom: var(--spacing-xs);
+    background-color: #4A4A60; /* Slightly lighter note background */
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid var(--bg-light);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.2s ease;
 }
 
 .note-item.pinned {
-    border-left: 5px solid var(--secondary-blue);
+    border-left: 5px solid #21D4FD; /* Blue border for pinned notes */
+    padding-left: 10px;
 }
 
-.note-item .note-content {
+.note-item:hover {
+    background-color: #5A5A70;
+}
+
+.note-content {
     flex-grow: 1;
-    color: var(--text-light);
-    font-size: 1rem;
-    line-height: 1.4;
-    margin-right: var(--spacing-sm);
+    margin: 0;
+    font-size: 16px;
+    color: #E0E0E0;
 }
 
 .note-actions {
     display: flex;
-    gap: var(--spacing-xs);
+    gap: 10px;
 }
 
 .note-actions button {
     background: none;
     border: none;
-    color: var(--text-medium);
-    font-size: 1.1rem;
+    font-size: 18px;
     cursor: pointer;
-    transition: color 0.2s ease, transform 0.2s ease;
-    padding: 6px; /* Tambah padding agar mudah diklik */
-    border-radius: 50%;
+    color: #B721FF; /* Purple for action icons */
+    transition: color 0.2s ease;
+    padding: 5px;
 }
 
 .note-actions button:hover {
-    color: var(--primary-blue);
-    transform: scale(1.1);
+    color: #21D4FD; /* Blue on hover */
 }
 
-.note-actions .pin-button .pinned {
-    color: var(--secondary-blue); /* Warna untuk ikon pin yang aktif */
+/* Pinned icon specific color */
+.note-actions .pin-button .fas.fa-thumbtack.pinned {
+    color: #21D4FD; /* Blue for active pin icon */
 }
 
-.note-actions .delete-button:hover {
-    color: var(--danger-red);
+/* Keuangan Berkelanjutan Page */
+.financial-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
 }
 
-
-/* --- Finance Page --- */
-.finance-summary {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background: var(--bg-dark);
-    padding: var(--spacing-md);
-    border-radius: var(--border-radius-medium);
-    margin-bottom: var(--spacing-lg);
-    border: 1px solid var(--bg-light);
-}
-
-.summary-item {
+.summary-card {
+    background-color: #3A3A50;
+    padding: 15px;
+    border-radius: 10px;
     text-align: center;
-    padding: var(--spacing-sm);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.summary-item h4 {
-    font-size: 1rem;
-    color: var(--text-medium);
-    margin-bottom: var(--spacing-xs);
+.summary-card h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #C0C0C0;
 }
 
-.summary-item .amount {
-    font-size: 1.6rem;
-    font-weight: 700;
-    font-family: var(--font-mono);
-    color: var(--text-light); /* Default, akan di-override oleh text-green/red */
+.summary-card p {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
 }
 
-.summary-item.income .amount {
-    color: var(--success-green);
+.summary-card.income p {
+    color: #4CAF50; /* Green for income */
 }
 
-.summary-item.expense .amount {
-    color: var(--danger-red);
+.summary-card.expense p {
+    color: #F44336; /* Red for expense */
 }
 
-.summary-item.balance .amount {
-    color: var(--primary-blue);
+.summary-card.balance p {
+    color: #21D4FD; /* Blue for balance */
 }
 
-.history-section h3 {
-    font-size: 1.3rem;
-    color: var(--primary-blue);
-    margin-bottom: var(--spacing-sm);
-    padding-bottom: var(--spacing-xs);
-    border-bottom: 1px solid var(--bg-light);
+.transaction-input-section {
+    background-color: #3A3A50;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
-.table-container {
-    overflow-x: auto; /* Untuk tabel agar responsif */
+.transaction-input-section input,
+.transaction-input-section select {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background-color: #2C2C3F;
+    color: #E0E0E0;
+    font-size: 16px;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: var(--bg-dark);
-    border-radius: var(--border-radius-soft);
-    overflow: hidden; /* Agar border-radius terlihat pada table */
+.transaction-input-section input::placeholder {
+    color: #999;
 }
 
-table th, table td {
-    padding: var(--spacing-sm);
-    text-align: left;
-    border-bottom: 1px solid var(--bg-light);
-    color: var(--text-light);
-    font-size: 0.95rem;
+.transaction-list-section h3 {
+    color: #21D4FD;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-size: 22px;
 }
 
-table th {
-    background: var(--bg-light);
-    color: var(--primary-blue);
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 0.85rem;
+#transaction-list {
+    list-style: none;
+    padding: 0;
+    background-color: #3A3A50;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 15px;
 }
 
-table tbody tr:last-child td {
-    border-bottom: none;
+#transaction-list .empty-message {
+    color: #C0C0C0;
+    text-align: center;
+    font-style: italic;
+    padding: 10px;
 }
 
-table tbody tr:hover {
-    background-color: var(--bg-medium);
+.transaction-item {
+    background-color: #4A4A60;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-table .text-green {
-    color: var(--success-green);
-    font-weight: 500;
+.transaction-item.income {
+    border-left: 5px solid #4CAF50;
 }
 
-table .text-red {
-    color: var(--danger-red);
-    font-weight: 500;
+.transaction-item.expense {
+    border-left: 5px solid #F44336;
 }
 
-table .delete-button {
+.transaction-details {
+    flex-grow: 1;
+}
+
+.transaction-details h4 {
+    margin: 0;
+    font-size: 16px;
+    color: #E0E0E0;
+}
+
+.transaction-details p {
+    margin: 5px 0 0;
+    font-size: 14px;
+    color: #C0C0C0;
+}
+
+.transaction-amount-display {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.transaction-item .delete-button {
     background: none;
     border: none;
-    color: var(--text-medium);
-    font-size: 1rem;
+    color: #B721FF;
+    font-size: 18px;
     cursor: pointer;
-    transition: color 0.2s ease;
+    margin-left: 10px;
+    padding: 5px;
 }
 
-table .delete-button:hover {
-    color: var(--danger-red);
+.transaction-item .delete-button:hover {
+    color: #21D4FD;
 }
 
-.empty-message {
-    color: var(--text-medium);
-    text-align: center;
-    padding: var(--spacing-md);
-    font-style: italic;
-    font-size: 0.9rem;
+/* Product Pages */
+#product-list-page .page-title,
+#product-detail-page .page-title {
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
-/* --- Product Categories & Listings --- */
-.category-grid, .product-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: var(--spacing-md);
-    padding-top: var(--spacing-xs);
+.product-list-container {
+    background-color: #3A3A50;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
 }
 
-.category-card, .product-card {
-    background: var(--bg-dark);
-    padding: var(--spacing-md);
-    border-radius: var(--border-radius-medium);
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+.product-item {
+    background-color: #4A4A60;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     cursor: pointer;
-    border: 1px solid var(--bg-light);
-    position: relative;
-    overflow: hidden;
+    transition: background-color 0.2s ease;
 }
 
-.category-card::before, .product-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, rgba(33, 212, 253, 0.1), rgba(183, 33, 255, 0.1));
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: 0;
+.product-item:hover {
+    background-color: #5A5A70;
 }
 
-.category-card:hover::before, .product-card:hover::before {
-    opacity: 1;
+.product-item h3 {
+    font-size: 18px;
+    color: #E0E0E0;
+    margin-top: 0;
+    margin-bottom: 5px;
 }
 
-.category-card:hover, .product-card:hover {
-    transform: translateY(-5px) scale(1.01);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4), 0 0 0 2px var(--primary-blue);
-    background: var(--bg-medium);
+.product-item p {
+    font-size: 14px;
+    color: #C0C0C0;
+    margin-bottom: 0;
 }
 
-.category-card i {
-    font-size: 3rem;
-    color: var(--primary-blue);
-    margin-bottom: var(--spacing-sm);
-    position: relative;
-    z-index: 1;
+/* Product Detail Page */
+#product-detail-content {
+    background-color: #3A3A50;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.category-card h3, .product-card h4 {
-    font-size: 1.2rem;
-    margin-bottom: var(--spacing-xs);
-    color: var(--text-light);
-    position: relative;
-    z-index: 1;
+#product-detail-content h2 {
+    color: #21D4FD;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 26px;
+    text-align: center;
 }
 
-.product-card p {
-    font-size: 0.85rem;
-    color: var(--text-medium);
-    position: relative;
-    z-index: 1;
+#product-detail-content h3 {
+    color: #B721FF;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    font-size: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 5px;
 }
 
-/* --- Product Detail Page --- */
-.product-detail-name {
-    margin-bottom: var(--spacing-lg);
+#product-detail-content p,
+#product-detail-content ul {
+    color: #C0C0C0;
+    font-size: 16px;
+    margin-bottom: 10px;
 }
 
-.detail-section {
-    background: var(--bg-dark);
-    padding: var(--spacing-md);
-    border-radius: var(--border-radius-soft);
-    margin-bottom: var(--spacing-md);
-    border: 1px solid var(--bg-light);
+#product-detail-content ul {
+    list-style-type: disc;
+    padding-left: 20px;
 }
 
-.detail-section h3 {
-    font-size: 1.1rem;
-    color: var(--primary-blue);
-    margin-bottom: var(--spacing-sm);
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-xs);
-}
-
-.detail-section h3 i {
-    font-size: 1.3rem;
-    color: var(--secondary-blue);
-}
-
-.detail-content {
-    font-size: 0.95rem;
-    color: var(--text-medium);
-    line-height: 1.5;
-}
-
-.certification-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing-xs);
-}
-
-.certification-tag {
-    background: rgba(33, 212, 253, 0.2);
-    color: var(--primary-blue);
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 500;
-    border: 1px solid rgba(33, 212, 253, 0.4);
-}
-
-/* Link styling for Shopee */
-.detail-content a {
-    color: var(--primary-blue);
+.product-detail-link {
+    display: inline-block;
+    background-color: #B721FF;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
     text-decoration: none;
-    font-weight: 600;
-    transition: color 0.2s ease;
+    margin-right: 10px;
+    margin-top: 10px;
+    transition: background-color 0.2s ease;
 }
 
-.detail-content a:hover {
-    color: var(--secondary-blue);
-    text-decoration: underline;
+.product-detail-link:hover {
+    background-color: #21D4FD;
 }
 
-/* Utility Classes */
-.text-green { color: var(--success-green); }
-.text-red { color: var(--danger-red); }
-
-/* Scrollbar Styling (Optional, for modern browsers) */
-::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: var(--bg-medium);
+/* Peta Daur Ulang Page */
+.map-placeholder {
+    background-color: #3A3A50;
     border-radius: 10px;
+    padding: 50px 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 30px;
 }
 
-::-webkit-scrollbar-thumb {
-    background: var(--bg-light);
-    border-radius: 10px;
+.map-placeholder .map-icon {
+    font-size: 80px;
+    color: #21D4FD;
+    margin-bottom: 20px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-    background: var(--primary-blue);
+.map-placeholder p {
+    font-size: 18px;
+    color: #C0C0C0;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .app-container {
-        border-radius: 0;
-        min-height: 100vh;
-        max-width: 100%;
-        box-shadow: none;
-        padding: 0;
+
+/* Media Queries for Responsiveness */
+@media (max-width: 600px) {
+    .main-header {
+        padding: 10px;
     }
 
-    body {
-        padding: 0;
+    .app-title {
+        font-size: 20px;
     }
 
-    .app-main {
-        padding: var(--spacing-md);
+    .menu-toggle {
+        font-size: 20px;
+        margin-right: 10px;
     }
 
-    .app-header {
-        padding: var(--spacing-md);
+    .side-menu {
+        width: 220px;
     }
 
-    .header-title {
-        font-size: 1.5rem;
+    .side-menu a {
+        font-size: 16px;
+        padding: 12px 15px;
     }
 
-    .back-button {
-        left: var(--spacing-md);
+    #app-content {
+        padding: 15px;
     }
 
-    .feature-grid {
-        grid-template-columns: 1fr;
+    .page-title {
+        font-size: 24px;
+        margin-bottom: 20px;
     }
 
-    .finance-summary {
-        flex-direction: column;
-        gap: var(--spacing-md);
+    .hero h1 {
+        font-size: 28px;
     }
 
-    .summary-item {
-        width: 100%;
+    .hero p {
+        font-size: 16px;
     }
 
-    table th, table td {
-        font-size: 0.85rem;
-        padding: var(--spacing-xs);
+    .category-grid {
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        gap: 15px;
     }
 
-    .category-grid, .product-list {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 480px) {
-    .app-header {
-        padding: var(--spacing-sm);
+    .category-card {
+        padding: 20px 10px;
     }
 
-    .header-title {
-        font-size: 1.3rem;
+    .category-card i {
+        font-size: 40px;
     }
 
-    .back-button {
-        left: var(--spacing-sm);
-        font-size: 1.3rem;
+    .category-card h3 {
+        font-size: 16px;
     }
 
-    .page {
-        padding: var(--spacing-md) var(--spacing-sm);
+    .action-button, .back-button {
+        padding: 10px 20px;
+        font-size: 14px;
     }
 
-    .input-section {
-        padding: var(--spacing-sm);
+    .note-input-section,
+    .transaction-input-section {
+        padding: 15px;
+        gap: 10px;
+    }
+
+    #note-text,
+    .transaction-input-section input,
+    .transaction-input-section select {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .note-item, .transaction-item {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .note-actions button {
+        font-size: 16px;
+    }
+
+    .financial-summary {
+        grid-template-columns: 1fr; /* Stack on small screens */
+        gap: 10px;
+    }
+
+    .summary-card p {
+        font-size: 20px;
+    }
+
+    .transaction-details h4 {
+        font-size: 14px;
+    }
+
+    .transaction-details p {
+        font-size: 12px;
+    }
+
+    .transaction-amount-display {
+        font-size: 16px;
+    }
+
+    #product-detail-content {
+        padding: 15px;
+    }
+
+    #product-detail-content h2 {
+        font-size: 22px;
+    }
+
+    #product-detail-content h3 {
+        font-size: 18px;
+    }
+
+    #product-detail-content p,
+    #product-detail-content ul {
+        font-size: 14px;
+    }
+
+    .product-detail-link {
+        padding: 8px 12px;
+        font-size: 14px;
     }
 }
