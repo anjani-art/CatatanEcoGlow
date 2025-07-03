@@ -3,171 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EcoGlow | Panduan Gaya Hidup Berkelanjutan</title>
-    
+    <title>EcoGlow - Panduan Gaya Hidup Berkelanjutan</title>
     <link rel="stylesheet" href="style.css">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
     <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#21D4FD"> 
-    <link rel="apple-touch-icon" href="/icon-192x192.png"> 
-    </head>
+    <meta name="theme-color" content="#21D4FD">
+    <link rel="apple-touch-icon" href="/icon-192x192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="EcoGlow">
+</head>
 <body>
-    <div class="app-container">
-        <header class="app-header">
-            <button id="backButton" class="back-button" style="display: none;">
-                <i class="fas fa-arrow-left"></i>
+    <header class="main-header">
+        <nav class="navbar">
+            <button class="menu-toggle" id="menu-toggle">
+                <i class="fas fa-bars"></i>
             </button>
-            <h1 id="headerTitle" class="header-title">EcoGlow</h1>
-        </header>
+            <span class="app-title">EcoGlow</span>
+        </nav>
+        <nav class="side-menu" id="side-menu">
+            <ul>
+                <li><a href="#" data-page="home"><i class="fas fa-home"></i> Beranda</a></li>
+                <li><a href="#" data-page="catatan"><i class="fas fa-sticky-note"></i> Catatan & Pengingat</a></li>
+                <li><a href="#" data-page="keuangan"><i class="fas fa-wallet"></i> Keuangan Berkelanjutan</a></li>
+                <li><a href="#" data-page="produk"><i class="fas fa-leaf"></i> Saran Produk Go Green</a></li>
+                <li><a href="#" data-page="peta"><i class="fas fa-map-marker-alt"></i> Peta Daur Ulang</a></li>
+            </ul>
+        </nav>
+    </header>
 
-        <main class="app-main">
-            <section id="dashboardPage" class="page active">
-                <div class="feature-grid">
-                    <div class="feature-card" id="searchCard">
-                        <i class="fas fa-search"></i>
-                        <h3>Pencarian Cerdas</h3>
-                        <p>Temukan informasi ramah lingkungan.</p>
-                    </div>
-                    <div class="feature-card" id="notesCard">
-                        <i class="fas fa-clipboard-list"></i>
-                        <h3>Catatan & Pengingat</h3>
-                        <p>Simpan ide dan daftar kegiatan hijau Anda.</p>
-                    </div>
-                    <div class="feature-card" id="financeCard">
-                        <i class="fas fa-chart-line"></i>
-                        <h3>Keuangan Berkelanjutan</h3>
-                        <p>Pantau pengeluaran dan pemasukan hijau Anda.</p>
-                    </div>
-                    <div class="feature-card" id="greenProductsCard">
-                        <i class="fas fa-leaf"></i>
-                        <h3>Saran Produk Go Green</h3>
-                        <p>Temukan produk ramah lingkungan terbaik.</p>
-                    </div>
+    <main id="app-content">
+        <section id="home-page" class="page active">
+            <div class="hero">
+                <h1>Jelajahi Solusi Hijau Kami</h1>
+                <p>Selamat datang di EcoGlow, panduan Anda menuju gaya hidup yang lebih berkelanjutan. Temukan produk ramah lingkungan dan inspirasi DIY!</p>
+            </div>
+            <div class="category-grid">
+                <div class="category-card" data-category="Dapur">
+                    <i class="fas fa-home"></i>
+                    <h3>Rumah Tangga</h3>
                 </div>
-            </section>
-
-            <section id="searchPage" class="page">
-                <div class="search-input-container">
-                    <input type="text" id="searchInput" placeholder="Cari produk, catatan, atau informasi..." aria-label="Cari">
-                    <i class="fas fa-search search-icon"></i>
+                <div class="category-card" data-category="Perawatan Diri">
+                    <i class="fas fa-seedling"></i>
+                    <h3>Perawatan Diri</h3>
                 </div>
-
-                <div id="searchResults" class="search-results-container" style="display: none;">
-                    <h3 id="productSearchResultsHeader" class="search-results-header" style="display: none;">Produk Ramah Lingkungan</h3>
-                    <div id="productSearchResultsList" class="results-list">
-                        </div>
-
-                    <h3 id="noteSearchResultsHeader" class="search-results-header" style="display: none;">Catatan Saya</h3>
-                    <div id="noteSearchResultsList" class="results-list">
-                        </div>
-
-                    <p id="noResultsMessage" class="empty-message" style="display: none;">Tidak ada hasil ditemukan.</p>
+                <div class="category-card" data-category="Pakaian">
+                    <i class="fas fa-tshirt"></i>
+                    <h3>Pakaian</h3>
                 </div>
-            </section>
-
-            <section id="notesPage" class="page">
-                <div class="input-section">
-                    <textarea id="noteInput" placeholder="Tulis catatan atau pengingat baru..."></textarea>
-                    <button id="addNoteButton" class="cta-button">Tambah Catatan</button>
+                <div class="category-card" data-category="Kemasan">
+                    <i class="fas fa-box-open"></i>
+                    <h3>Kemasan</h3>
                 </div>
-
-                <div class="notes-list-section">
-                    <h3>Catatan Disematkan</h3>
-                    <div id="pinnedNotesList" class="notes-list">
-                        <p id="emptyPinnedNotesMessage" class="empty-message" style="display:none;">Belum ada catatan yang disematkan.</p>
-                    </div>
-                    <h3>Catatan Lainnya</h3>
-                    <div id="otherNotesList" class="notes-list">
-                        <p id="emptyOtherNotesMessage" class="empty-message" style="display:none;">Belum ada catatan lainnya.</p>
-                    </div>
+                <div class="category-card" data-category="Pertanian & Kebun">
+                    <i class="fas fa-leaf"></i>
+                    <h3>Pertanian & Kebun</h3>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <section id="financePage" class="page">
-                <div class="finance-summary">
-                    <div class="summary-item income">
-                        <h4>Pemasukan</h4>
-                        <p id="totalIncome" class="amount">Rp0</p>
-                    </div>
-                    <div class="summary-item expense">
-                        <h4>Pengeluaran</h4>
-                        <p id="totalExpense" class="amount">Rp0</p>
-                    </div>
-                    <div class="summary-item balance">
-                        <h4>Saldo Bersih</h4>
-                        <p id="netBalance" class="amount">Rp0</p>
-                    </div>
+        <section id="catatan-page" class="page">
+            <h2 class="page-title">Catatan & Pengingat</h2>
+            <div class="note-input-section">
+                <textarea id="note-text" placeholder="Tulis catatan baru..."></textarea>
+                <button id="add-note-button" class="action-button">TAMBAH CATATAN</button>
+            </div>
+
+            <div class="notes-list-section">
+                <h3>Catatan Disematkan</h3>
+                <div id="pinned-notes-container" class="notes-container">
+                    <p id="empty-pinned-notes-message">Belum ada catatan yang disematkan.</p>
                 </div>
 
-                <div class="input-section">
-                    <input type="number" id="transactionAmount" placeholder="Jumlah (Rp)" min="1" step="any" aria-label="Jumlah transaksi">
-                    <input type="text" id="transactionDescription" placeholder="Deskripsi transaksi" aria-label="Deskripsi transaksi">
-                    <select id="transactionType" aria-label="Tipe transaksi">
-                        <option value="expense">Pengeluaran</option>
-                        <option value="income">Pemasukan</option>
-                    </select>
-                    <button id="addTransactionButton" class="cta-button">Tambah Transaksi</button>
+                <h3>Catatan Lainnya</h3>
+                <div id="other-notes-container" class="notes-container">
+                    <p id="empty-other-notes-message">Belum ada catatan lainnya.</p>
                 </div>
+            </div>
+        </section>
 
-                <div class="history-section">
-                    <h3>Riwayat Transaksi</h3>
-                    <div class="table-container">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Tanggal</th>
-                                    <th>Tipe</th>
-                                    <th>Deskripsi</th>
-                                    <th>Jumlah</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody id="transactionHistoryBody">
-                                </tbody>
-                        </table>
-                    </div>
+        <section id="keuangan-page" class="page">
+            <h2 class="page-title">Keuangan Berkelanjutan</h2>
+            <div class="financial-summary">
+                <div class="summary-card income">
+                    <h4>Pemasukan Bulan Ini</h4>
+                    <p id="total-income">Rp 0</p>
                 </div>
-            </section>
+                <div class="summary-card expense">
+                    <h4>Pengeluaran Bulan Ini</h4>
+                    <p id="total-expense">Rp 0</p>
+                </div>
+                <div class="summary-card balance">
+                    <h4>Saldo Akhir</h4>
+                    <p id="current-balance">Rp 0</p>
+                </div>
+            </div>
 
-            <section id="productCategoriesPage" class="page">
-                <h2 class="section-title">Jelajahi Kategori Produk</h2>
-                <div id="categoryGrid" class="category-grid">
-                    </div>
-            </section>
+            <div class="transaction-input-section">
+                <input type="text" id="transaction-description" placeholder="Deskripsi">
+                <input type="number" id="transaction-amount" placeholder="Jumlah (contoh: 50000)">
+                <select id="transaction-type">
+                    <option value="income">Pemasukan</option>
+                    <option value="expense">Pengeluaran</option>
+                </select>
+                <button id="add-transaction-button" class="action-button">TAMBAH TRANSAKSI</button>
+            </div>
 
-            <section id="productListingsPage" class="page">
-                <h2 id="productListingTitle" class="section-title">Produk</h2>
-                <div id="productList" class="product-list">
-                    </div>
-            </section>
+            <div class="transaction-list-section">
+                <h3>Riwayat Transaksi</h3>
+                <ul id="transaction-list">
+                    <li class="empty-message">Belum ada transaksi.</li>
+                </ul>
+            </div>
+        </section>
 
-            <section id="productDetailPage" class="page">
-                <h2 id="productNameDetail" class="section-title product-detail-name">Nama Produk</h2>
-                <div class="detail-section">
-                    <h3><i class="fas fa-award"></i> Sertifikasi</h3>
-                    <div id="productCertifications" class="detail-content certification-tags"></div>
+        <section id="produk-page" class="page">
+            <h2 class="page-title">JELAJAHI KATEGORI PRODUK</h2>
+            <div id="product-categories-grid" class="category-grid">
                 </div>
-                <div class="detail-section">
-                    <h3><i class="fas fa-seedling"></i> Bahan Baku</h3>
-                    <p id="productIngredients" class="detail-content"></p>
+        </section>
+
+        <section id="product-list-page" class="page">
+            <h2 class="page-title" id="product-list-category-title"></h2>
+            <div class="product-list-container" id="product-list-container">
                 </div>
-                <div class="detail-section">
-                    <h3><i class="fas fa-industry"></i> Proses Produksi</h3>
-                    <p id="productProduction" class="detail-content"></p>
+            <button class="back-button" data-target="produk">Kembali ke Kategori</button>
+        </section>
+
+        <section id="product-detail-page" class="page">
+            <div id="product-detail-content">
                 </div>
-                <div class="detail-section">
-                    <h3><i class="fas fa-globe-americas"></i> Dampak Lingkungan</h3>
-                    <p id="productImpact" class="detail-content"></p>
-                </div>
-                <div class="detail-section">
-                    <h3><i class="fas fa-tools"></i> DIY & Link Pembelian</h3>
-                    <p id="productDIY" class="detail-content"></p>
-                </div>
-            </section>
-        </main>
-    </div>
+            <button class="back-button" data-target="product-list">Kembali ke Daftar Produk</button>
+        </section>
+
+        <section id="peta-page" class="page">
+            <h2 class="page-title">Peta Daur Ulang & Pusat Donasi</h2>
+            <p>Fitur peta akan segera hadir! Anda akan dapat menemukan lokasi daur ulang terdekat dan pusat donasi.</p>
+            <div class="map-placeholder">
+                <i class="fas fa-map-marker-alt map-icon"></i>
+                <p>Peta interaktif akan muncul di sini.</p>
+            </div>
+        </section>
+    </main>
 
     <script src="script.js"></script>
 </body>
