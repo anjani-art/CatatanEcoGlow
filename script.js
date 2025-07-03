@@ -36,6 +36,15 @@ document.addEventListener('DOMContentLoaded', () => {
         sideMenu.classList.toggle('active');
     });
 
+    // Event listener for closing side menu using the "X" button
+    const closeMenuButton = document.getElementById('close-menu');
+    if (closeMenuButton) {
+        closeMenuButton.addEventListener('click', () => {
+            sideMenu.classList.remove('active');
+        });
+    }
+
+
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
@@ -50,9 +59,17 @@ document.addEventListener('DOMContentLoaded', () => {
             showPage(targetPage);
             // Specific logic for product detail back button
             if (targetPage === 'product-list') {
-                const categoryTitle = document.getElementById('product-list-category-title').textContent;
-                const category = categoryTitle.replace('Produk Kategori: ', '');
-                renderProductsByCategory(category);
+                // This assumes product-list-category-title has text like "Produk Kategori: [CategoryName]"
+                const categoryTitleElement = document.getElementById('product-list-category-title');
+                if (categoryTitleElement) {
+                    const categoryTitle = categoryTitleElement.textContent;
+                    const category = categoryTitle.replace('Produk Kategori: ', '');
+                    renderProductsByCategory(category);
+                } else {
+                    // Fallback if category title element is not found
+                    renderProductCategories(); // Go back to main product categories
+                    showPage('products');
+                }
             }
         });
     });
@@ -73,7 +90,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function loadNotes() {
         const storedNotes = localStorage.getItem('notes');
-        return storedNotes ? JSON.parse(storedNotes) : [];
+        // Filter out any potentially invalid (e.g., null or undefined) notes
+        return storedNotes ? JSON.parse(storedNotes).filter(note => note && note.id && note.text !== undefined) : [];
     }
 
     const createNoteElement = (note) => {
@@ -125,12 +143,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const otherNotes = notes.filter(note => !note.pinned);
 
         if (pinnedNotes.length === 0) {
-            // Memastikan elemen ada sebelum mengakses style
-            if (emptyPinnedNotesMessage) { // <--- PERBAIKAN DI SINI
+            if (emptyPinnedNotesMessage) {
                 emptyPinnedNotesMessage.style.display = 'block';
             }
         } else {
-            if (emptyPinnedNotesMessage) { // <--- PERBAIKAN DI SINI
+            if (emptyPinnedNotesMessage) {
                 emptyPinnedNotesMessage.style.display = 'none';
             }
             pinnedNotes.forEach(note => {
@@ -139,12 +156,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (otherNotes.length === 0) {
-            // Memastikan elemen ada sebelum mengakses style
-            if (emptyOtherNotesMessage) { // <--- PERBAIKAN DI SINI
+            if (emptyOtherNotesMessage) {
                 emptyOtherNotesMessage.style.display = 'block';
             }
         } else {
-            if (emptyOtherNotesMessage) { // <--- PERBAIKAN DI SINI
+            if (emptyOtherNotesMessage) {
                 emptyOtherNotesMessage.style.display = 'none';
             }
             otherNotes.forEach(note => {
@@ -161,7 +177,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 text: text,
                 pinned: false
             };
-            notes.push(newNote);
+            // Menggunakan unshift() agar catatan terbaru muncul di atas
+            notes.unshift(newNote); // <--- PERBAIKAN DI SINI
             saveNotes();
             renderNotes();
             noteText.value = ''; // Clear input field
@@ -380,7 +397,7 @@ document.addEventListener('DOMContentLoaded', () => {
             bahan_baku: ['Sisa makanan', 'Daun kering', 'Rumput'],
             proses_produksi: 'Proses dekomposisi alami (kompos rumah tangga).',
             dampak_lingkungan: 'Mengurangi limbah organik ke TPA, meningkatkan kesuburan tanah alami.',
-            diy_tips: 'Buat sendiri di rumah dengan wadah kompos sederhana.',
+            d diy_tips: 'Buat sendiri di rumah dengan wadah kompos sederhana.',
             link_pembelian: 'https://shopee.co.id/pupuk-kompos-organik-i.55667788.9900112233'
         }
     ];
