@@ -125,18 +125,28 @@ document.addEventListener('DOMContentLoaded', () => {
         const otherNotes = notes.filter(note => !note.pinned);
 
         if (pinnedNotes.length === 0) {
-            emptyPinnedNotesMessage.style.display = 'block';
+            // Memastikan elemen ada sebelum mengakses style
+            if (emptyPinnedNotesMessage) { 
+                emptyPinnedNotesMessage.style.display = 'block';
+            }
         } else {
-            emptyPinnedNotesMessage.style.display = 'none';
+            if (emptyPinnedNotesMessage) {
+                emptyPinnedNotesMessage.style.display = 'none';
+            }
             pinnedNotes.forEach(note => {
                 pinnedNotesContainer.appendChild(createNoteElement(note));
             });
         }
 
         if (otherNotes.length === 0) {
-            emptyOtherNotesMessage.style.display = 'block';
+            // Memastikan elemen ada sebelum mengakses style
+            if (emptyOtherNotesMessage) {
+                emptyOtherNotesMessage.style.display = 'block';
+            }
         } else {
-            emptyOtherNotesMessage.style.display = 'none';
+            if (emptyOtherNotesMessage) {
+                emptyOtherNotesMessage.style.display = 'none';
+            }
             otherNotes.forEach(note => {
                 otherNotesContainer.appendChild(createNoteElement(note));
             });
